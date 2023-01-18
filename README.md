@@ -1,5 +1,8 @@
 # vue3-ts
 
+##参考図書
+『Vue3　フロントエンド開発の教科書』
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
