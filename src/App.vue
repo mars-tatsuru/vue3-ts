@@ -88,10 +88,30 @@ import { ref, computed, reactive } from "vue";
 //   console.log(mousePointerY.value)
 // }
 
-const stg = ref("未送信")
-const onFormSubmit = (): void => {
-  stg.value = "送信済み"
-}
+// const stg = ref("未送信")
+// const onFormSubmit = (): void => {
+//   stg.value = "送信済み"
+// }
+
+
+//v-modelの考え方(双方向データバインディング)
+// const inputNameBind = ref("しんちゃん")
+// const inputNameOn = ref("ななし")
+// const onInputName = (e : Event) :void=> {
+//   const ele = e.target as HTMLInputElement
+//   inputNameOn.value = ele.value
+// }
+
+// const inputName2Way = ref("双方向")
+// const onInputName2Way = (e:Event):void => {
+//   const ele = e.target as HTMLInputElement
+//   inputName2Way.value = ele.value
+// }
+
+// const isAgree = ref(false)
+// const changeAgreeBtn = ():void => {
+//   console.log(isAgree)
+// }
 
 </script>
 
@@ -99,6 +119,8 @@ const onFormSubmit = (): void => {
   <main>
     <!-- <h3>現在時刻: {{ timeStr }}</h3>
     <h3>現在時刻(ref): {{ timeStrRef }}</h3> -->
+
+    <!-- ディレクティブ系 -->
     <!-- <p>
       半径{{ data.radius }}の円の面積を円周率{{ data.PI }}で計算すると{{ area }}
     </p>
@@ -109,11 +131,33 @@ const onFormSubmit = (): void => {
     <!-- <p :class="styles">こんにちは</p>
     <button type="button" @click="clickBtn">ボタンを押してね</button> -->
     <!-- <button type="button" @click="onBottunClick">{{randValue}}</button> -->
-    <form action="#" @submit.prevent="onFormSubmit">
+    <!-- <form action="#" @submit.prevent="onFormSubmit">
       <input type="text" required>
       <button type="submit">送信</button>
     </form>
-    <p>{{ stg }}</p>
+    <p>{{ stg }}</p> -->
+
+    <!--- 双方向データバインディング　-->
+    <!-- <section>
+      <input type="text" :value="inputNameBind">
+    </section>
+    <section>
+      <input type="text" v-on:input="onInputName2Way" v-bind:value="inputName2Way">
+      <input type="text" v-model="inputNameOn">
+      <p>{{inputName2Way}}</p>
+      <p>{{inputNameOn}}</p>
+    </section> -->
+    <!-- <section>
+      <label @change="changeAgreeBtn">
+        <input type="checkbox" v-model="isAgree">同意する
+      </label>
+      <p>同意の結果{{ isAgree }}</p>
+    </section> -->
+
+
+    <!-- その他ディレクティブ系 -->
+    
+
   </main>
 </template>
 
