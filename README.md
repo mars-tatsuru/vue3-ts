@@ -1,5 +1,6 @@
 # 参考図書
 『Vue3　フロントエンド開発の教科書』
+https://www.amazon.co.jp/gp/product/4297130726/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1
 
 # vue3-ts
 This template should help get you started developing with Vue 3 in Vite.
