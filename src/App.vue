@@ -1,7 +1,42 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
 import TheWelcome from "./components/TheWelcome.vue";
-import { ref, computed, reactive } from "vue";
+import { ref, computed, reactive, onMounted } from "vue";
+import { defineComponent } from "@vue/runtime-core";
+import { useStore } from "@/store/store";
+import * as MutationTypes from "./store/mutationType";
+import * as ActionTypes from "./store/actinonTypes"
+
+const store = useStore();
+
+// const todoItems = computed(() => store.state.todoItems);
+
+const form = reactive({
+  title: "",
+  content: ""
+});
+
+const clearForm = () => {
+  form.title = "";
+  form.content = "";
+};
+
+const onSubmit = () => {
+  store.commit(MutationTypes.ADD_TODO_ITEM, {
+    id: Math.floor(Math.random() * 100000), // 仮でランダムなIDを設定
+    content: form.content,
+    title: form.title
+  });
+  console.log(store.state)
+  clearForm();
+};
+
+const todoItems = computed(() => store.getters.completedTodoItems);
+console.log(todoItems)
+
+// onMounted(async () => {
+//   await store.dispatch(ActionTypes.INITIALIZE_TODO_ITEMS)
+// })
 
 // const now = new Date()
 // const nowStr = now.toLocaleTimeString()
@@ -156,7 +191,18 @@ import { ref, computed, reactive } from "vue";
 
 
     <!-- その他ディレクティブ系 -->
-    
+    <h1>{{todoItems}}</h1>
+    <form>
+      <label for="title">
+        title
+        <input type="text" id="title" v-model="form.title" />
+      </label>
+      <label for="content">
+        content
+        <input type="text" id="content" v-model="form.content" />
+      </label>
+      <input type="submit" value="submit" @click.prevent="onSubmit" />
+  </form>
 
   </main>
 </template>
