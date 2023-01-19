@@ -31,7 +31,7 @@ const onSubmit = () => {
   clearForm();
 };
 
-const todoItems = computed(() => store.getters.completedTodoItems);
+const todoItems = computed(() => store.state.todoItems);
 console.log(todoItems)
 
 // onMounted(async () => {
