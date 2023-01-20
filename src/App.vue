@@ -27,12 +27,12 @@ const onSubmit = () => {
     content: form.content,
     title: form.title
   });
-  console.log(store.state)
+  // console.log(store.state)
   clearForm();
 };
 
 const todoItems = computed(() => store.state.todoItems);
-console.log(todoItems)
+// console.log(todoItems)
 
 // onMounted(async () => {
 //   await store.dispatch(ActionTypes.INITIALIZE_TODO_ITEMS)
@@ -148,6 +148,30 @@ console.log(todoItems)
 //   console.log(isAgree)
 // }
 
+//連想配列のv-for
+// const arr:{[key:number]: string} =  {
+//   1235: "a",
+//   2345: "b",
+//   3455: "c",
+// }
+
+// const arr = new Map<number,string>()
+// arr.set(1,"a")
+
+// const refArr = ref(arr)
+
+const obj:{
+  id: number,
+  name: string
+} = {
+  id: 1,
+  name: 'tatsu'
+}
+
+const refObj = ref(obj)
+
+
+
 </script>
 
 <template>
@@ -191,8 +215,8 @@ console.log(todoItems)
 
 
     <!-- その他ディレクティブ系 -->
-    <h1>{{todoItems}}</h1>
-    <form>
+    <!-- <h1>{{todoItems}}</h1> -->
+    <!-- <form>
       <label for="title">
         title
         <input type="text" id="title" v-model="form.title" />
@@ -202,7 +226,22 @@ console.log(todoItems)
         <input type="text" id="content" v-model="form.content" />
       </label>
       <input type="submit" value="submit" @click.prevent="onSubmit" />
-  </form>
+    </form> -->
+
+    <!-- <ul>
+      <li v-for="(ele,id, index) in refArr"
+      :key="ele+id"
+      >
+      {{index+1}}は{{id}} : {{ele}}
+    </li>
+    </ul> -->
+    <template
+    v-for="(value, key) in refObj"
+    :key="key"
+    >
+    <dt>{{ key }}</dt>
+    <dd>{{ value }}</dd>
+    </template>
 
   </main>
 </template>
