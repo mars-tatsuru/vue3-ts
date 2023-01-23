@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
-import { ref, computed, reactive, onMounted } from "vue";
+import { ref, computed, reactive, onMounted, onBeforeMount,onBeforeUpdate,onUpdated,onRenderTracked,onRenderTriggered } from "vue";
 import { defineComponent } from "@vue/runtime-core";
 import { useStore } from "@/store/store";
 import * as MutationTypes from "./store/mutationType";
 import * as ActionTypes from "./store/actinonTypes"
+import type { DebuggerEvent } from "vue";
 
 const store = useStore();
 
@@ -170,27 +170,72 @@ const todoItems = computed(() => store.state.todoItems);
 
 // const refObj = ref(obj)
 
-interface usersTail {
-  id: number,
-  name: string
+
+// watch,watchEffectの学習
+// interface usersTail {
+//   id: number,
+//   name: string
+// }
+
+// const userListInit:usersTail[] = [
+//   {id: 1, name:"name1"},
+//   {id: 2, name:"name2"},
+//   {id: 3, name:"name3"},
+//   {id: 4, name:"name4"},
+//   {id: 8, name:"name5"}
+// ]
+
+// const userList = ref(userListInit)
+
+// const idUper = computed((): usersTail[] => {
+//   const newList = userList.value.filter((userTailItem: usersTail):boolean => {
+//     return userTailItem.id > 1
+//   })
+//   return newList
+// })
+
+
+const heightInit = Math.round(Math.random() * 10)
+const widthInit = Math.round(Math.random() * 10)
+const height = ref(heightInit)
+const width = ref(widthInit)
+
+
+const area = computed(():number => {
+  return height.value * width.value
+})
+
+const change = ():void => {
+  height.value = Math.round(Math.random() * 10)
+  width.value = Math.round(Math.random() * 10)
 }
 
-const userListInit:usersTail[] = [
-  {id: 1, name:"name1"},
-  {id: 2, name:"name2"},
-  {id: 3, name:"name3"},
-  {id: 4, name:"name4"},
-  {id: 8, name:"name5"}
-]
-
-const userList = ref(userListInit)
-
-const idUper = computed((): usersTail[] => {
-  const newList = userList.value.filter((userTailItem: usersTail):boolean => {
-    return userTailItem.id > 1
-  })
-  return newList
+onBeforeMount(():void => {
+  console.log(`beforemounted called: ${height.value} * ${width.value}`)
 })
+
+onMounted(():void => {
+  console.log(`mounted called: ${height.value} * ${width.value}`)
+})
+
+onBeforeUpdate(():void => {
+  console.log(`beforeUpdated called: ${height.value} * ${width.value}`)
+})
+
+onUpdated(():void => {
+  console.log(`updated called: ${height.value} * ${width.value}`)
+})
+
+onRenderTracked(($event:DebuggerEvent):void => {
+  console.log(`renderTracked called: ${height.value} * ${width.value}`)
+  console.log($event)
+})
+
+onRenderTriggered(($event:DebuggerEvent):void => {
+  console.log(`renderTriggered called: ${height.value} * ${width.value}`)
+  console.log($event)
+})
+
 
 
 </script>
@@ -264,8 +309,8 @@ const idUper = computed((): usersTail[] => {
     <dd>{{ value }}</dd>
     </template> -->
 
-    <h1>idが1のやつ</h1>
-
+    <!-- wacth,watchEffect -->
+    <!-- <h1>idが1のやつ</h1>
     <ul>
       <li
       v-for="item in idUper"
@@ -273,20 +318,31 @@ const idUper = computed((): usersTail[] => {
       <p>id: {{ item.id }}</p>
      </li>
     </ul>
-
     <h2>全部</h2>
-
     <ul>
       <li
       v-for="item in userList"
       >
       <p>id: {{ item.id }}</p>
      </li>
-    </ul>
+    </ul> -->
+
+    <!-- ライフサイクル -->
+
+
 
 
 
   </main>
+  <!-- <div>
+    <p>たてが{{height}}横が{{width}}長方形の面積は{{area}}</p>
+    <button
+    @click="change"
+    >
+      値を変える
+    </button>
+  </div> -->
+  <HelloWorld msg="aaaaaa"></HelloWorld>
 </template>
 
 <style scoped>
