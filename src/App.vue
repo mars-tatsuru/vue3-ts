@@ -160,16 +160,37 @@ const todoItems = computed(() => store.state.todoItems);
 
 // const refArr = ref(arr)
 
-const obj:{
+// const obj:{
+//   id: number,
+//   name: string
+// } = {
+//   id: 1,
+//   name: 'tatsu'
+// }
+
+// const refObj = ref(obj)
+
+interface usersTail {
   id: number,
   name: string
-} = {
-  id: 1,
-  name: 'tatsu'
 }
 
-const refObj = ref(obj)
+const userListInit:usersTail[] = [
+  {id: 1, name:"name1"},
+  {id: 2, name:"name2"},
+  {id: 3, name:"name3"},
+  {id: 4, name:"name4"},
+  {id: 8, name:"name5"}
+]
 
+const userList = ref(userListInit)
+
+const idUper = computed((): usersTail[] => {
+  const newList = userList.value.filter((userTailItem: usersTail):boolean => {
+    return userTailItem.id > 1
+  })
+  return newList
+})
 
 
 </script>
@@ -235,13 +256,35 @@ const refObj = ref(obj)
       {{index+1}}は{{id}} : {{ele}}
     </li>
     </ul> -->
-    <template
+    <!-- <template
     v-for="(value, key) in refObj"
     :key="key"
     >
     <dt>{{ key }}</dt>
     <dd>{{ value }}</dd>
-    </template>
+    </template> -->
+
+    <h1>idが1のやつ</h1>
+
+    <ul>
+      <li
+      v-for="item in idUper"
+      >
+      <p>id: {{ item.id }}</p>
+     </li>
+    </ul>
+
+    <h2>全部</h2>
+
+    <ul>
+      <li
+      v-for="item in userList"
+      >
+      <p>id: {{ item.id }}</p>
+     </li>
+    </ul>
+
+
 
   </main>
 </template>
