@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
+import Auth from "./components/Auth.vue";
 import { ref, computed, reactive, onMounted, onBeforeMount,onBeforeUpdate,onUpdated,onRenderTracked,onRenderTriggered } from "vue";
 import { defineComponent } from "@vue/runtime-core";
 import { useStore } from "@/store/store";
@@ -195,47 +196,60 @@ const todoItems = computed(() => store.state.todoItems);
 // })
 
 
-const heightInit = Math.round(Math.random() * 10)
-const widthInit = Math.round(Math.random() * 10)
-const height = ref(heightInit)
-const width = ref(widthInit)
+//　ライフサイクルの確認
+// const heightInit = Math.round(Math.random() * 10)
+// const widthInit = Math.round(Math.random() * 10)
+// const height = ref(heightInit)
+// const width = ref(widthInit)
 
 
-const area = computed(():number => {
-  return height.value * width.value
+// const area = computed(():number => {
+//   return height.value * width.value
+// })
+
+// const change = ():void => {
+//   height.value = Math.round(Math.random() * 10)
+//   width.value = Math.round(Math.random() * 10)
+// }
+
+// onBeforeMount(():void => {
+//   console.log(`beforemounted called: ${height.value} * ${width.value}`)
+// })
+
+// onMounted(():void => {
+//   console.log(`mounted called: ${height.value} * ${width.value}`)
+// })
+
+// onBeforeUpdate(():void => {
+//   console.log(`beforeUpdated called: ${height.value} * ${width.value}`)
+// })
+
+// onUpdated(():void => {
+//   console.log(`updated called: ${height.value} * ${width.value}`)
+// })
+
+// onRenderTracked(($event:DebuggerEvent):void => {
+//   console.log(`renderTracked called: ${height.value} * ${width.value}`)
+//   console.log($event)
+// })
+
+// onRenderTriggered(($event:DebuggerEvent):void => {
+//   console.log(`renderTriggered called: ${height.value} * ${width.value}`)
+//   console.log($event)
+// })
+
+
+// props
+const point = computed(():number => {
+  let total = 0
+  return total
 })
 
-const change = ():void => {
-  height.value = Math.round(Math.random() * 10)
-  width.value = Math.round(Math.random() * 10)
+// emit
+const number = ref(0)
+const onCreateNew = ():void => {
+  number.value++
 }
-
-onBeforeMount(():void => {
-  console.log(`beforemounted called: ${height.value} * ${width.value}`)
-})
-
-onMounted(():void => {
-  console.log(`mounted called: ${height.value} * ${width.value}`)
-})
-
-onBeforeUpdate(():void => {
-  console.log(`beforeUpdated called: ${height.value} * ${width.value}`)
-})
-
-onUpdated(():void => {
-  console.log(`updated called: ${height.value} * ${width.value}`)
-})
-
-onRenderTracked(($event:DebuggerEvent):void => {
-  console.log(`renderTracked called: ${height.value} * ${width.value}`)
-  console.log($event)
-})
-
-onRenderTriggered(($event:DebuggerEvent):void => {
-  console.log(`renderTriggered called: ${height.value} * ${width.value}`)
-  console.log($event)
-})
-
 
 
 </script>
@@ -342,7 +356,17 @@ onRenderTriggered(($event:DebuggerEvent):void => {
       値を変える
     </button>
   </div> -->
-  <HelloWorld msg="aaaaaa"></HelloWorld>
+  <HelloWorld
+    msg="aaaaaa"
+    name="aaaaa"
+    :number="Number(2)"
+  >
+  </HelloWorld>
+  <h1>{{ number }}</h1>
+  <Auth
+   :points = point
+   @createnew = "onCreateNew"
+  />
 </template>
 
 <style scoped>
