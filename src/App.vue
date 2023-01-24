@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
 import Auth from "./components/Auth.vue";
-import { ref, computed, reactive, onMounted, onBeforeMount,onBeforeUpdate,onUpdated,onRenderTracked,onRenderTriggered } from "vue";
+import { ref, computed, reactive, onMounted, onBeforeMount,onBeforeUpdate,onUpdated,onRenderTracked,onRenderTriggered,provide } from "vue";
 import { defineComponent } from "@vue/runtime-core";
 import { useStore } from "@/store/store";
 import * as MutationTypes from "./store/mutationType";
@@ -240,19 +240,36 @@ const todoItems = computed(() => store.state.todoItems);
 
 
 // props
-const point = computed(():number => {
-  let total = 0
-  return total
-})
+// const point = computed(():number => {
+//   let total = 0
+//   return total
+// })
 
 // emit
-const number = ref(0)
-const onCreateNew = ():void => {
-  number.value++
-}
+// const number = ref(0)
+// const onCreateNew = ():void => {
+//   number.value++
+// }
 
+const memberList = [
+  {
+    name: "user1",
+    id: 1
+  },
+  {
+    name: "user2",
+    id: 2
+  }
+]
+
+// string | number型のデータ
+provide<string | number>("id", 2)
+// number[]型のデータ
+provide<number[]>("arr", [])
+provide("memberList",reactive(memberList))
 
 </script>
+
 
 <template>
   <main>
@@ -362,11 +379,12 @@ const onCreateNew = ():void => {
     :number="Number(2)"
   >
   </HelloWorld>
-  <h1>{{ number }}</h1>
-  <Auth
+  <!-- <h1>{{ number }}</h1> -->
+  <!-- <Auth
    :points = point
    @createnew = "onCreateNew"
-  />
+  /> -->
+  <Auth />
 </template>
 
 <style scoped>

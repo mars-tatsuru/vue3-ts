@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { isMemberExpression } from '@vue/compiler-core';
+import { ref, computed,inject} from 'vue';
 
 
 // const pointUp = ():void => {
@@ -17,7 +18,18 @@ const clickNew = ():void => {
   emit("createnew")
 }
 
+interface Member {
+  name: string
+  id:number
+}
 
+const data1 = inject<number>("id")
+const data2 = inject<number[]>("arr")
+// const data3 = inject("memberList") as Map<number, Member>
+
+// console.log(data1)
+// console.log(data2)
+// console.log(data3)
 
 </script>
 
