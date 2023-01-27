@@ -38,7 +38,7 @@ const data2 = inject<number[]>("arr")
     <!-- <h1 class="green">{{ name }}</h1> -->
     <!-- <h1 class="green">{{ localPoint }}</h1>
     <button type="button" @click="pointUp">ポイント加算</button> -->
-    <button type="button" @click="clickNew">親へ渡す</button>
+    <!-- <button type="button" @click="clickNew">親へ渡す</button> -->
   </div>
 </template>
 

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
+import Input from "./components/input.vue";
+import Radio from "./components/radio.vue";
+import Select from "./components/Select.vue";
 import Auth from "./components/Auth.vue";
 import { ref, computed, reactive, onMounted, onBeforeMount,onBeforeUpdate,onUpdated,onRenderTracked,onRenderTriggered,provide } from "vue";
 import { defineComponent } from "@vue/runtime-core";
@@ -7,6 +10,7 @@ import { useStore } from "@/store/store";
 import * as MutationTypes from "./store/mutationType";
 import * as ActionTypes from "./store/actinonTypes"
 import type { DebuggerEvent } from "vue";
+import { isGloballyWhitelisted } from "@vue/shared";
 
 const store = useStore();
 
@@ -268,6 +272,26 @@ provide<string | number>("id", 2)
 provide<number[]>("arr", [])
 provide("memberList",reactive(memberList))
 
+
+const name = ref("koike")
+
+const currentComp = ref(Input)
+const currentCompName = ref("Input")
+
+const compList = [Input,Radio,Select]
+const compListName: string[] = ["Input","Radio","Select"]
+
+let currentCompIndex = 0
+
+const swirchComp = (): void => {
+  currentCompIndex++
+  if(currentCompIndex >= 3){
+    currentCompIndex = 0
+  }
+  currentComp.value = compList[currentCompIndex]
+  currentCompName.value = compListName[currentCompIndex]
+}
+
 </script>
 
 
@@ -373,21 +397,101 @@ provide("memberList",reactive(memberList))
       値を変える
     </button>
   </div> -->
-  <HelloWorld
+  <!-- <HelloWorld
     msg="aaaaaa"
-    name="aaaaa"
+    :name="name"
     :number="Number(2)"
-  >
-  </HelloWorld>
+  >c
+  <p>連絡はつきません</p>
+  </HelloWorld> -->
+  <!-- <HelloWorld :user="name">
+    <template v-slot:default>
+      <p>異常発生</p>
+    </template>
+    <template v-slot:detail>
+      <p>特に問題ありません。</p>
+    </template>
+    <div class="card">
+      <div class="card-container">
+        <p>aaaaaaa</p>
+      </div>
+    </div>
+    <p>aaaaa</p>
+    <template v-slot:default ="slotProps">
+      <dl>
+        <dt>名前</dt>
+        <dd>{{slotProps.memberInfo.name}}</dd>
+      </dl>
+    </template>
+  </HelloWorld> -->
+
+  <!-- <a href="#" class="gradient1">7-1-29 グラデーションが流れる</a> -->
   <!-- <h1>{{ number }}</h1> -->
   <!-- <Auth
    :points = point
    @createnew = "onCreateNew"
   /> -->
-  <Auth />
+  <!-- <Auth /> -->
+
+
+  <p>{{currentCompName}}</p>
+  <KeepAlive>
+    <component :is="currentComp" />
+  </KeepAlive>
+  <button @click="swirchComp">切り替え</button>
 </template>
 
 <style scoped>
+.card{
+  width: 300px;
+  margin: 0 auto;
+  border: 1px solid #000;
+}
+
+.card-container{
+  padding: 20px;
+}
+
+
+/*== グラデーションが流れる */
+
+.gradient1{
+    /*ボタンの形状*/
+    display: inline-block;
+    color:#fff;
+    padding: 18px 60px;
+
+    border-radius:30px;
+    text-decoration: none;
+    outline: none;
+    /*背景の色と形状*/
+    background: linear-gradient(153.49deg, #88D723 0%, #239F0F 25%,#88D723 51%, #239F0F 100%);
+    background-position: 1% 50%;
+    background-size: 500% auto;
+    /*アニメーションの指定*/
+    transition: all 0.3s ease-out;
+}
+
+/*hoverした際の、背景の場所とテキスト色の変更*/
+.gradient1:hover {
+    background-position: 100% 50%;
+    /* background-size: 400% auto; */
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+    vertical-align:middle;
+    padding: 100px 0;
+    text-align: center;
+}
+
+p{
+    margin: 0 0 10px 0;
+}
+
+
 header {
   line-height: 1.5;
 }
